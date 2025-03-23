@@ -9,6 +9,7 @@ function CabinCard({ cabin }) {
       <Image
         src={image}
         alt={`Cabin ${name}`}
+        fill
         className="flex-1 border-r border-primary-800"
       />
 
