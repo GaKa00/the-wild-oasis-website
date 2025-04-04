@@ -24,7 +24,8 @@ const authConfig = {
                     image: user.image,
                 });
             
-        } catch {
+        } 
+    }catch {
             return false
         }
         },
