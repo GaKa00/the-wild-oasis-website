@@ -1,6 +1,8 @@
 import ProfileForm from "@/app/_components/ProfileForm";
 import SelectCountry from "@/app/_components/SelectCountry";
+import { auth } from "@/app/_lib/auth";
 import { getGuest } from "@/app/_lib/data-service";
+import { Session } from "next-auth";
 
 
 export const metadata = {
@@ -8,7 +10,12 @@ export const metadata = {
 };
 
 export default  async function Page() {
-  const session = await auth();
+  const session: Session | null = await auth();
+
+  if (!session?.user?.email) {
+    throw new Error("No user email found in session.");
+  }
+
   const guest = await getGuest(session.user.email);
   
   return (

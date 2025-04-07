@@ -8,8 +8,15 @@ export const metadata = {
   title: "Cabins",
 };
 
-export default function Page({ searchParams }) {
+type SearchParams = {
+  searchParams?: {
+    capacity?: string;
+  };
+};
+
+export default function Page({ searchParams }: SearchParams) {
   const filter = searchParams?.capacity ?? "all";
+
   return (
     <div>
       <h1 className="text-4xl mb-5 text-accent-400 font-medium">
@@ -28,7 +35,7 @@ export default function Page({ searchParams }) {
       </div>
       <Suspense fallback={<Spinner />} key={filter}>
         <CabinList filter={filter} />
-        <ReservationReminder/>
+        <ReservationReminder />
       </Suspense>
     </div>
   );
