@@ -78,7 +78,7 @@ export async function getBookings(guestId) {
     .select(
       "id, created_at, startDate, endDate, numNights, numGuests, totalPrice, guestId, cabinId, cabins(name, image)"
     )
-    .eq("guestId", guestId)
+    .eq("guestID", guestId)
     .order("startDate");
 
   if (error) {
@@ -203,8 +203,7 @@ export async function updateBooking(id, updatedFields) {
   return data;
 }
 
-/////////////
-// DELETE
+
 
 export async function deleteBooking(id) {
   const { data, error } = await supabase.from("bookings").delete().eq("id", id);
