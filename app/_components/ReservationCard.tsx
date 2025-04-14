@@ -11,11 +11,9 @@ export const formatDistanceFromNow = (dateStr: string) =>
     addSuffix: true,
   }).replace("about ", "");
 
-  interface ReservationProps extends bookingObject {
-    onDelete: () => void;
-  }
+ 
 
-function ReservationCard({ booking, onDelete } : ReservationProps)  {
+function ReservationCard({ booking, onDelete } )  {
   const {
     id,
     startDate,

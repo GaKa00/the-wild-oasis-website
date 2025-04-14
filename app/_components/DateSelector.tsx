@@ -1,44 +1,60 @@
 "use client";
 
-import { isWithinInterval } from "date-fns";
-import { useState } from "react";
-import { DayPicker } from "react-day-picker";
+import {
+  differenceInDays,
+  isPast,
+  isSameDay,
+  isWithinInterval,
+} from "date-fns";
+import { DayPicker, DateRange } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { useReservation } from "./ReservationContext";
 
-function isAlreadyBooked(range, datesArr) {
+interface Settings {
+  minBookingLength: number;
+  maxBookingLength: number;
+}
+
+interface Cabin {
+  regularPrice: number;
+  discount: number;
+}
+
+interface Props {
+  settings: Settings;
+  cabin: Cabin;
+  bookedDates: Date[]; 
+}
+
+function isAlreadyBooked(range: DateRange, datesArr: Date[]): boolean {
   return (
-    range.from &&
-    range.to &&
+    !!range.from &&
+    !!range.to &&
     datesArr.some((date) =>
-      isWithinInterval(date, { start: range.from, end: range.to })
+      isWithinInterval(date, { start: range.from!, end: range.to! })
     )
   );
 }
 
-function DateSelector({settings, cabin, bookedDates}) {
 
+function DateSelector({ settings, cabin, bookedDates }: Props) {
+  const { range, setRange, resetRange } = useReservation();
+  const displayRange = isAlreadyBooked(range, bookedDates) ? {} : range;
 
-  // CHANGE
-  const regularPrice = 23;
-  const discount = 23;
-  const numNights = 23;
-  const cabinPrice = 23;
+  const { regularPrice, discount } = cabin;
+  const numNights =
+    range.from && range.to ? differenceInDays(range.to, range.from) : 0;
 
+  const cabinPrice = numNights * (regularPrice - discount);
+  const { minBookingLength, maxBookingLength } = settings;
 
-  // SETTINGS
-  const {minBookingLength, maxBookingLength} = settings
-
-const {range, setRange, resetRange} = useReservation();
   return (
     <div className="flex flex-col justify-between">
       <DayPicker
-        className="pt-12 place-self-center"
+        className="place-self-center"
         mode="range"
         onSelect={setRange}
-        selected={range}
-
-
+        selected={displayRange}
         min={minBookingLength + 1}
         max={maxBookingLength}
         fromMonth={new Date()}
@@ -46,6 +62,20 @@ const {range, setRange, resetRange} = useReservation();
         toYear={new Date().getFullYear() + 5}
         captionLayout="dropdown"
         numberOfMonths={2}
+        disabled={(curDate) =>
+          isPast(curDate) ||
+          bookedDates.some((date) => isSameDay(date, curDate))
+        }
+        classNames={{
+          day_selected: "bg-accent-500 text-white",
+          day_range_start: "bg-accent-500 text-white",
+          day_range_end: "bg-accent-600 text-white",
+          day_today: "border border-yellow-500",
+          day_disabled: "text-gray-500 opacity-50",
+          nav_button: "text-accent-500 hover:text-accent-300",
+          caption_label: "text-accent-500 font-semibold",
+          caption: "flex items-center gap-2 justify-center",
+        }}
       />
 
       <div className="flex items-center justify-between px-8 bg-accent-500 text-primary-800 h-[72px]">
@@ -76,14 +106,14 @@ const {range, setRange, resetRange} = useReservation();
           ) : null}
         </div>
 
-        {range.from || range.to ? (
+        {(range.from || range.to) && (
           <button
-            className="border border-primary-800 py-2 px-4 text-sm font-semibold"
-            onClick={() => resetRange()}
+            className="border border-accent-600 py-2 px-4 text-sm font-semibold"
+            onClick={resetRange}
           >
             Clear
           </button>
-        ) : null}
+        )}
       </div>
     </div>
   );

@@ -26,7 +26,7 @@ const bookings = await getBookings(session.user.guestId);
         </p>
       ) : (
         <ul className="space-y-6">
-          {bookings.map((booking): bookingInterface => (
+          {bookings.map((booking)=> (
             <ReservationCard booking={booking} key={booking.id} />
           ))}
         </ul>
