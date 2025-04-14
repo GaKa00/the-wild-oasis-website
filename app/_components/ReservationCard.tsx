@@ -3,7 +3,7 @@ import Image from "next/image";
 import { PencilSquareIcon } from "@heroicons/react/24/solid";
 import { format, formatDistance, isPast, isToday, parseISO } from "date-fns";
 import DeleteReservation from "./DeleteReservation";
-import { bookingObject } from "../types";
+
 
 
 export const formatDistanceFromNow = (dateStr: string) =>
@@ -13,7 +13,7 @@ export const formatDistanceFromNow = (dateStr: string) =>
 
  
 
-function ReservationCard({ booking, onDelete } )  {
+function ReservationCard({ booking, onDelete }  )  {
   const {
     id,
     startDate,

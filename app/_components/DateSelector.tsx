@@ -57,7 +57,7 @@ function DateSelector({ settings, cabin, bookedDates }: Props) {
         selected={displayRange}
         min={minBookingLength + 1}
         max={maxBookingLength}
-        fromMonth={new Date()}
+        startMonth={new Date()}
         fromDate={new Date()}
         toYear={new Date().getFullYear() + 5}
         captionLayout="dropdown"
@@ -66,16 +66,7 @@ function DateSelector({ settings, cabin, bookedDates }: Props) {
           isPast(curDate) ||
           bookedDates.some((date) => isSameDay(date, curDate))
         }
-        classNames={{
-          day_selected: "bg-accent-500 text-white",
-          day_range_start: "bg-accent-500 text-white",
-          day_range_end: "bg-accent-600 text-white",
-          day_today: "border border-yellow-500",
-          day_disabled: "text-gray-500 opacity-50",
-          nav_button: "text-accent-500 hover:text-accent-300",
-          caption_label: "text-accent-500 font-semibold",
-          caption: "flex items-center gap-2 justify-center",
-        }}
+   
       />
 
       <div className="flex items-center justify-between px-8 bg-accent-500 text-primary-800 h-[72px]">
