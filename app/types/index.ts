@@ -1,3 +1,17 @@
+
+
+
+declare module "next-auth" {
+  interface Session {
+    user: {
+      name?: string | null;
+      email?: string | null;
+      image?: string | null;
+      guestId: string; 
+    };
+  }
+}
+
 export interface bookingInterface {
   id: string;
   startDate: string;
@@ -5,6 +19,7 @@ export interface bookingInterface {
   numNights: number;
   totalPrice: number;
   numGuests: number;
+  maxCapacity?: number;
   created_at: string;
   cabins: { name: string; image: string };
 }
@@ -12,7 +27,8 @@ export interface bookingInterface {
 export interface cabinInterface {
   id: string;
   name: string;
-  maxCapacity: number;
+  description: string;
+  maxCapacity?: number;
   regularPrice: number;
   discount: number;
   image: string;
@@ -28,6 +44,12 @@ export interface SessionInterface {
   };
 }
 
+export interface guestInterface {
+  fullName: string;
+  email: string;
+  nationalID: string;
+  countryFlag?: string;
+}
 
 export interface bookingObject {
   booking: bookingInterface;

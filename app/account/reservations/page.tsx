@@ -1,6 +1,7 @@
 import ReservationCard from "@/app/_components/ReservationCard";
 import { auth } from "@/app/_lib/auth";
 import { getBookings } from "@/app/_lib/data-service";
+import { bookingInterface } from "@/app/types";
 
 export const metadata = {
   title: "Reservations",
@@ -25,7 +26,7 @@ const bookings = await getBookings(session.user.guestId);
         </p>
       ) : (
         <ul className="space-y-6">
-          {bookings.map((booking) => (
+          {bookings.map((booking): bookingInterface => (
             <ReservationCard booking={booking} key={booking.id} />
           ))}
         </ul>

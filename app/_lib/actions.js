@@ -68,7 +68,9 @@ export async function deleteBooking(bookingId) {
     .delete()
     .eq("id", bookingId);
 
-  if (error) throw new Error("Booking could not be deleted");
+  if (error) 
+    console.log( "CONSOLE error:",error);
+    throw new Error("Booking could not be deleted");
 
   revalidatePath("/account/reservations");
 }
