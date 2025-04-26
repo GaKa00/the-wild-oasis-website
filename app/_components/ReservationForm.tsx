@@ -38,7 +38,7 @@ function ReservationForm({ cabin, user } : { cabin: cabinInterface; user: any })
 
       <form
         action={async (formData) => {
-          await createBookingWithData(formData);
+          await createBookingWithData(formdata);
           resetRange();
         }}
         className="bg-primary-900 py-10 px-16 text-lg flex gap-5 flex-col"
