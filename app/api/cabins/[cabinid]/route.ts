@@ -1,5 +1,5 @@
 import { getBookedDatesByCabinId, getCabin } from "@/app/_lib/data-service";
-import { get } from "http";
+
 
 export async function GET(request, { params }) {
 

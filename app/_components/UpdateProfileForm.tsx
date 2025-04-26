@@ -7,7 +7,7 @@ import SubmitButton from "./SubmitButton";
 function UpdateProfileForm({ guest, children }) {
 
 
-  const { fullName, email, nationality, nationalID, countryFlag } = guest;
+  const { fullName, email,  nationalID, countryFlag } = guest;
 
 
 

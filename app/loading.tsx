@@ -1,3 +1,12 @@
-export default function Loader() {
-    return <p>LAODING BIICIOLÖUFHVWEUI</p>
+import React from "react";
+import Spinner from "./_components/Spinner";
+
+export default function Loading() {
+    return (
+
+        <Spinner/>
+    )
+    
+
+    
 }

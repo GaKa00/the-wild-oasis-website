@@ -5,15 +5,22 @@ import { useReservation } from "./ReservationContext";
 import { createBooking } from "../_lib/actions";
 import SubmitButton from "./SubmitButton";
 import { cabinInterface } from "../types";
+import { UserType } from "next-auth";
 
-function ReservationForm({ cabin, user } : { cabin: cabinInterface; user: any }) {
+interface ReservationFormProps {
+  cabin: cabinInterface;
+  user: UserType;
+}
+
+function ReservationForm({ cabin, user }: ReservationFormProps) {
   const { range, resetRange } = useReservation();
   const { maxCapacity, regularPrice, discount, id } = cabin;
 
-  const startDate = range.from;
-  const endDate = range.to;
+  const startDate = range?.from;
+  const endDate = range?.to;
 
-  const numNights = differenceInDays(endDate, startDate);
+  const numNights =
+    startDate && endDate ? differenceInDays(endDate, startDate) : 0;
   const cabinPrice = numNights * (regularPrice - discount);
 
   const bookingData = {
@@ -30,15 +37,14 @@ function ReservationForm({ cabin, user } : { cabin: cabinInterface; user: any })
     <div className="scale-[1.01]">
       <div className="bg-primary-800 text-primary-300 px-16 py-2 flex justify-between items-center">
         <p>Logged in as</p>
-
         <div className="flex gap-4 items-center">
           <p>{user.name}</p>
         </div>
       </div>
 
       <form
-        action={async (formData) => {
-          await createBookingWithData(formdata);
+        action={async (formData: FormData) => {
+          await createBookingWithData(formData);
           resetRange();
         }}
         className="bg-primary-900 py-10 px-16 text-lg flex gap-5 flex-col"
@@ -54,11 +60,13 @@ function ReservationForm({ cabin, user } : { cabin: cabinInterface; user: any })
             <option value="" key="">
               Select number of guests...
             </option>
-            {Array.from({ length: maxCapacity }, (_, i) => i + 1).map((x) => (
-              <option value={x} key={x}>
-                {x} {x === 1 ? "guest" : "guests"}
-              </option>
-            ))}
+            {Array.from({ length: maxCapacity ?? 0 }, (_, i) => i + 1).map(
+              (x) => (
+                <option value={x} key={x}>
+                  {x} {x === 1 ? "guest" : "guests"}
+                </option>
+              )
+            )}
           </select>
         </div>
 
@@ -89,4 +97,3 @@ function ReservationForm({ cabin, user } : { cabin: cabinInterface; user: any })
 }
 
 export default ReservationForm;
-
