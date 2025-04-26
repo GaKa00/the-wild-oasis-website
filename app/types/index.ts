@@ -30,8 +30,8 @@ export interface cabinInterface {
   description?: string;
   maxCapacity?: number;
   regularPrice: number;
-  discount: number;
-  image: string;
+  discount?: number;
+  image?: string;
 }
 
 export interface SessionInterface {
