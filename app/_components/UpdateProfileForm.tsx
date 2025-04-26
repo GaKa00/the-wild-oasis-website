@@ -1,10 +1,15 @@
 "use client";
 
 import { updateGuest } from "../_lib/actions";
+import { guestInterface } from "../types";
 import SubmitButton from "./SubmitButton";
 
+interface UpdateProfileFormProps {
+  guest: guestInterface;
+  children: React.ReactNode;
+}
 
-function UpdateProfileForm({ guest, children }) {
+function UpdateProfileForm({ guest, children } : UpdateProfileFormProps) {
 
 
   const { fullName, email,  nationalID, countryFlag } = guest;

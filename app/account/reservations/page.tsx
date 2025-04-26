@@ -10,8 +10,15 @@ export const metadata = {
 
 export default async function Page() {
 const session = await auth();
-console.log("guestId", session?.user.guestId);
-const bookings = await getBookings(session.user.guestId);
+
+const guestId = session?.user?.guestId;
+
+if (!guestId) {
+  throw new Error("Guest ID not found. Please log in.");
+}
+
+const bookings = await getBookings(guestId);
+
 
   return (
     <div>

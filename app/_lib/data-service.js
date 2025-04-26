@@ -74,7 +74,6 @@ export async function getBooking(id) {
 export async function getBookings(guestId) {
   const { data, error } = await supabase
     .from("bookings")
-
     .select(
       "id, created_at, startDate, endDate, numNights, numGuests, totalPrice, guestId, cabinId, cabins(name, image)"
     )
@@ -86,8 +85,14 @@ export async function getBookings(guestId) {
     throw new Error("Bookings could not get loaded");
   }
 
-  return data;
+  const bookings = data.map((booking) => ({
+    ...booking,
+    cabins: Array.isArray(booking.cabins) ? booking.cabins[0] : booking.cabins, 
+  }));
+
+  return bookings;
 }
+
 
 export async function getBookedDatesByCabinId(cabinId) {
   let today = new Date();

@@ -1,6 +1,6 @@
 "use client";
 
-export default function ProfileForm({ children }) {
+export default function ProfileForm({ children } : { children: React.ReactNode }) {
  
   return (
     <div>

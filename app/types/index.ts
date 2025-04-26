@@ -1,15 +1,21 @@
-
-
-
 declare module "next-auth" {
-   export interface UserType{
-    
-      name?: string | null;
-      email?: string | null;
-      image?: string | null;
-      guestId: string; 
-    
+  export interface UserType {
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+    guestId?: string;
   }
+  interface Session {
+    user: UserType; 
+  }
+}
+
+export interface countryInterface {
+  defaultCountry: string,
+   name: string,
+    id: string, 
+    className: string,
+    flag?: unknown
 }
 
 export interface bookingInterface {
@@ -37,9 +43,8 @@ export interface cabinInterface {
 export interface SessionInterface {
   session: {
     user: {
-      email?: string,
-      guestId?: string
-      
+      email?: string;
+      guestId?: string;
     };
   };
 }
