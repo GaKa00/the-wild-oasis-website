@@ -16,7 +16,8 @@ function CabinCard({ cabin } : { cabin: cabinInterface }) {
            alt={`Cabin ${name}`}
            className="object-cover border-r border-primary-800"
          />
-        )}
+        )
+}
       </div>
 
       <div className="flex-grow">
@@ -33,7 +34,7 @@ function CabinCard({ cabin } : { cabin: cabinInterface }) {
           </div>
 
           <p className="flex gap-3 justify-end items-baseline">
-            {discount > 0 ? (
+            {discount && discount > 0 ? (
               <>
                 <span className="text-3xl font-[350]">
                   ${regularPrice - discount}
