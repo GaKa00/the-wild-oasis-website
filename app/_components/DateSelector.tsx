@@ -6,7 +6,7 @@ import {
   isSameDay,
   isWithinInterval,
 } from "date-fns";
-import { DayPicker, DateRange } from "react-day-picker";
+import {  DayPicker} from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { useReservation } from "./ReservationContext";
 
@@ -24,6 +24,11 @@ interface Props {
   settings: Settings;
   cabin: Cabin;
   bookedDates: Date[]; 
+}
+
+interface DateRange {
+  from?: Date;
+  to?: Date;
 }
 
 function isAlreadyBooked(range: DateRange, datesArr: Date[]): boolean {
