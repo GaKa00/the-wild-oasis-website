@@ -27,7 +27,7 @@ export interface bookingInterface {
 export interface cabinInterface {
   id: string;
   name: string;
-  description: string;
+  description?: string;
   maxCapacity?: number;
   regularPrice: number;
   discount: number;
