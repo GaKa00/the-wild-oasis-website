@@ -57,6 +57,7 @@ export async function getGuest(email) {
 }
 
 export async function getBooking(id) {
+  console.log("getBooking called with id:", id);
   const { data, error } = await supabase
     .from("bookings")
     .select("*")

@@ -4,7 +4,9 @@ import { getBooking, getCabin } from "@/app/_lib/data-service";
 
 export default async function Page({ params } : {params: {bookingId: string}}) {
   const { bookingId } = params;
+  console.log("Editing booking with ID:", bookingId);
   const { numGuests, observations, cabinId } = await getBooking(bookingId);
+  
   const { maxCapacity } = await getCabin(cabinId);
 
   return (
